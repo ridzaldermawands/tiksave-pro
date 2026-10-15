@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TikSave Pro - Download Video TikTok Tanpa Watermark HD</title>
+<style>
+:root{--bg:#0b0e14;--card:#141923;--card2:#0f131c;--bd:#232b3a;--tx:#f4f6fa;--mu:#9aa4b5;--red:#fe2c55;--cy:#25f4ee}
+*{box-sizing:border-box;margin:0}
+body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--tx);line-height:1.5}
+svg{width:1em;height:1em;flex:none}
+header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--bd);gap:10px}
+.logo{display:flex;align-items:center;gap:10px;font-size:1.5rem;font-weight:800;letter-spacing:-.5px}
+.logo i{width:46px;height:46px;border-radius:14px;border:2px solid transparent;background:linear-gradient(var(--bg),var(--bg)) padding-box,linear-gradient(135deg,var(--cy),var(--red)) border-box;display:grid;place-items:center;font-style:normal;color:var(--cy);font-size:1.4rem}
+.logo b{color:var(--red)}
+.pro{font-size:.7rem;font-weight:700;color:var(--cy);background:rgba(37,244,238,.1);border:1px solid rgba(37,244,238,.35);padding:2px 7px;border-radius:7px}
+.apibtn{display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--bd);color:var(--tx);padding:10px 14px;border-radius:12px;font-size:.85rem;cursor:pointer;white-space:nowrap}
+.apibtn svg{color:var(--cy)}
+main{max-width:680px;margin:0 auto;padding:44px 20px 20px;text-align:center}
+.badge{display:inline-flex;align-items:center;gap:8px;color:var(--red);background:rgba(254,44,85,.08);border:1px solid rgba(254,44,85,.35);padding:7px 16px;border-radius:99px;font-size:.85rem;font-weight:500}
+h1{font-size:clamp(1.9rem,7.5vw,3rem);line-height:1.2;margin:24px 0 16px;letter-spacing:-1px;font-weight:800}
+h1 span{background:linear-gradient(90deg,var(--cy),var(--red));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--mu);font-size:1rem;margin-bottom:32px}
+.panel{background:var(--card);border:1px solid var(--bd);border-radius:26px;padding:14px;text-align:left}
+.field{display:flex;align-items:center;gap:10px;background:var(--card2);border:1px solid var(--bd);border-radius:18px;padding:10px 10px 10px 16px}
+.field:focus-within{border-color:var(--cy)}
+.field>svg{color:var(--mu);font-size:1.4rem}
+.field input{flex:1;min-width:0;background:none;border:0;color:var(--tx);font-size:1rem;outline:0;padding:8px 0}
+.field input::placeholder{color:var(--mu)}
+.paste{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--bd);color:var(--cy);font-weight:600;padding:10px 14px;border-radius:12px;cursor:pointer;font-size:.9rem}
+.go{margin-top:12px;width:100%;display:flex;justify-content:center;align-items:center;gap:10px;border:0;border-radius:18px;padding:18px;font-size:1.1rem;font-weight:700;color:#fff;background:linear-gradient(90deg,#ff2a55,#ff5277);cursor:pointer;box-shadow:0 8px 24px rgba(254,44,85,.25)}
+.go:disabled{opacity:.65;cursor:wait}
+.err{display:none;margin-top:12px;padding:12px 14px;border-radius:12px;background:rgba(254,44,85,.1);color:#ff7a93;font-size:.92rem}
+.res{display:none;margin-top:14px;background:var(--card2);border:1px solid var(--bd);border-radius:18px;overflow:hidden}
+.res img{width:100%;max-height:360px;object-fit:cover;display:block;background:#000}
+.info{padding:14px}
+.t{font-weight:600;word-break:break-word}
+.a{color:var(--cy);font-size:.9rem;margin:2px 0 8px}
+.st{display:flex;gap:16px;flex-wrap:wrap;color:var(--mu);font-size:.85rem;margin-bottom:14px}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.btn{flex:1;min-width:140px;text-align:center;text-decoration:none;color:#fff;background:var(--red);padding:13px;border-radius:12px;font-weight:600;font-size:.95rem}
+.btn.alt{background:transparent;border:1px solid var(--bd);color:var(--tx)}
+hr{border:0;border-top:1px solid var(--bd);margin:56px 0 0}
+.why{max-width:680px;margin:0 auto;padding:48px 20px 20px;text-align:center}
+.why h2{font-size:1.5rem;margin-bottom:28px}
+.feat{background:var(--card);border:1px solid var(--bd);border-radius:24px;padding:26px;text-align:left;margin-bottom:16px}
+.ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:1.5rem;margin-bottom:22px;background:rgba(37,244,238,.1);border:1px solid rgba(37,244,238,.3);color:var(--cy)}
+.ic.r{background:rgba(254,44,85,.1);border-color:rgba(254,44,85,.3);color:var(--red)}
+.feat h3{font-size:1.15rem;margin-bottom:8px}
+.feat p{color:var(--mu);font-size:.95rem}
+footer{text-align:center;color:var(--mu);font-size:.8rem;padding:24px 20px 40px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;padding:20px;z-index:9}
+.modal.on{display:flex}
+.mbox{background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:20px;max-width:560px;width:100%;max-height:85vh;overflow:auto}
+.mbox h3{margin-bottom:6px}
+.mbox p{color:var(--mu);font-size:.9rem;margin-bottom:10px}
+pre{background:var(--card2);border:1px solid var(--bd);border-radius:12px;padding:12px;font-size:.78rem;overflow-x:auto;color:#cfe9ff;margin-bottom:12px}
+.close{width:100%;padding:12px;border-radius:12px;border:1px solid var(--bd);background:transparent;color:var(--tx);cursor:pointer;font-size:.95rem}
+</style>
+</head>
+<body>
+<svg style="display:none"><defs>
+<symbol id="i-note" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9.7a5.7 5.7 0 1 0 4.9 5.7V9a7.4 7.4 0 0 0 4.3 1.4V7.3a4.3 4.3 0 0 1-3.2-1.5z"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6M14 4l-4 16"/></symbol>
+<symbol id="i-bolt" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></symbol>
+<symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+<symbol id="i-dl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 21h16"/></symbol>
+<symbol id="i-ban" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></symbol>
+<symbol id="i-hd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M7 9v6m4-6v6M7 12h4m4-3v6h1.5a2.5 2.5 0 0 0 0-6z"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.4 8 8 9 4.6-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+</defs></svg>
+
+<header>
+  <div class="logo"><i><svg><use href="#i-note"/></svg></i><span>Tik<b>Save</b></span><span class="pro">PRO</span></div>
+  <button class="apibtn" id="apiOpen"><svg><use href="#i-code"/></svg>Kode API / Backend</button>
+</header>
+
+<main>
+  <span class="badge"><svg><use href="#i-bolt"/></svg>Unduh Cepat, Gratis &amp; Tanpa Watermark</span>
+  <h1>Download Video TikTok <span>Tanpa Watermark HD</span></h1>
+  <p class="lead">Simpan video TikTok favorit Anda dalam format MP4 HD berkualitas tinggi atau konversi ke MP3 suara jernih tanpa logo/watermark secara langsung.</p>
+
+  <div class="panel">
+    <div class="field">
+      <svg><use href="#i-link"/></svg>
+      <input id="url" type="url" placeholder="Tempel link TikTok di sini... (contoh: https://vt.tiktok.com/xxxx)" autocomplete="off">
+      <button class="paste" id="paste" type="button"><svg><use href="#i-copy"/></svg>Paste</button>
+    </div>
+    <button class="go" id="go"><svg><use href="#i-dl"/></svg><span id="goTxt">Download</span></button>
+    <div id="err" class="err"></div>
+
+    <div id="res" class="res">
+      <img id="cover" alt="Thumbnail">
+      <div class="info">
+        <div id="title" class="t"></div>
+        <div id="author" class="a"></div>
+        <div id="stats" class="st"></div>
+        <div class="acts">
+          <a id="dlV" class="btn" target="_blank" rel="noopener" download>Unduh Video HD (MP4)</a>
+          <a id="dlM" class="btn alt" target="_blank" rel="noopener" download>Unduh Musik (MP3)</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<hr>
+<section class="why">
+  <h2>Mengapa Memilih TikSave Pro?</h2>
+  <div class="feat"><div class="ic"><svg><use href="#i-ban"/></svg></div><h3>Tanpa Watermark</h3><p>Dapatkan video TikTok yang bersih dari logo bergerak TikTok dan watermark nama pengguna secara otomatis.</p></div>
+  <div class="feat"><div class="ic r"><svg><use href="#i-hd"/></svg></div><h3>Kualitas HD</h3><p>Unduh video dengan resolusi tertinggi yang tersedia, plus audio MP3 jernih.</p></div>
+  <div class="feat"><div class="ic"><svg><use href="#i-shield"/></svg></div><h3>Aman &amp; Tanpa Login</h3><p>Cukup tempel link. Tidak perlu daftar, tidak perlu instal aplikasi.</p></div>
+</section>
+<footer>Gunakan hanya untuk konten milik sendiri atau yang diizinkan pembuatnya.</footer>
+
+<div class="modal" id="modal">
+  <div class="mbox">
+    <h3>Kode API / Backend</h3>
+    <p>Frontend ini memanggil endpoint backend Express (<code>server.js</code>):</p>
+<pre>POST /api/download
+Content-Type: application/json
+
+{ "url": "https://vt.tiktok.com/xxxx/" }</pre>
+    <p>Contoh respons:</p>
+<pre>{
+  "success": true,
+  "data": {
+    "title": "...",
+    "author": "...",
+    "cover": "https://...",
+    "video_no_watermark": "https://...mp4",
+    "music": "https://...mp3",
+    "stats": { "views": 0, "likes": 0, "shares": 0 }
+  }
+}</pre>
+    <button class="close" id="apiClose">Tutup</button>
+  </div>
+</div>
+
+<script>
+// Kosongkan jika HTML disajikan oleh server Express yang sama.
+// Jika beda domain/port, isi misalnya "http://localhost:3000"
+const API_BASE = "";
+const $ = id => document.getElementById(id);
+const fmt = n => n == null ? "-" : Number(n).toLocaleString("id-ID");
+
+const showErr = m => { $("err").textContent = m; $("err").style.display = "block"; $("res").style.display = "none"; };
+
+async function run() {
+  const url = $("url").value.trim();
+  $("err").style.display = "none";
+  if (!url) return showErr("Tempel link TikTok terlebih dahulu.");
+  $("go").disabled = true; $("goTxt").textContent = "Memproses...";
+  try {
+    const r = await fetch(API_BASE + "/api/download", {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url })
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok || !j.success) throw new Error(j.error || "Gagal mengambil video.");
+    const d = j.data;
+    $("cover").src = d.cover || ""; $("cover").style.display = d.cover ? "block" : "none";
+    $("title").textContent = d.title || "(Tanpa judul)";
+    $("author").textContent = d.author ? "@" + d.author : "";
+    $("stats").innerHTML = `<span>👁 ${fmt(d.stats?.views)}</span><span>❤️ ${fmt(d.stats?.likes)}</span><span>🔁 ${fmt(d.stats?.shares)}</span>`;
+    $("dlV").href = d.video_no_watermark;
+    $("dlM").href = d.music || "#"; $("dlM").style.display = d.music ? "" : "none";
+    $("res").style.display = "block";
+  } catch (e) {
+    showErr(e.message === "Failed to fetch" ? "Tidak dapat terhubung ke server." : e.message);
+  } finally {
+    $("go").disabled = false; $("goTxt").textContent = "Download";
+  }
+}
+
+$("go").onclick = run;
+$("url").onkeydown = e => e.key === "Enter" && run();
+$("paste").onclick = async () => {
+  try { $("url").value = (await navigator.clipboard.readText()).trim(); $("url").focus(); }
+  catch { showErr("Tidak bisa membaca clipboard. Tempel manual ke kolom."); }
+};
+$("apiOpen").onclick = () => $("modal").classList.add("on");
+$("apiClose").onclick = () => $("modal").classList.remove("on");
+$("modal").onclick = e => e.target === $("modal") && $("modal").classList.remove("on");
+</script>
+</body>
+</html>

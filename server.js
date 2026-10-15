@@ -254,7 +254,13 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // ------------------------------------------------------------
 // 10) JALANKAN SERVER
+//     - Di komputer/hosting biasa: jalan dengan app.listen
+//     - Di Vercel: cukup export app (Vercel yang menjalankannya)
 // ------------------------------------------------------------
-app.listen(PORT, () => {
-  console.log(`Server jalan di http://localhost:${PORT}`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Server jalan di http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;

@@ -9,11 +9,18 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // ====== Konfigurasi ======
-// Jika RAPIDAPI_KEY diisi -> pakai RapidAPI. Jika kosong -> pakai endpoint publik TikWM.
 const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY;
 const RAPIDAPI_HOST = process.env.RAPIDAPI_HOST || "tiktok-video-no-watermark2.p.rapidapi.com";
 const RAPIDAPI_URL = process.env.RAPIDAPI_URL || `https://${RAPIDAPI_HOST}/`;
 const TIKWM_URL = "https://www.tikwm.com/api/";
+
+const BROWSER_HEADERS = {
+  "User-Agent": "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36",
+  "Accept": "application/json, text/plain, */*",
+  "Content-Type": "application/x-www-form-urlencoded",
+  "Origin": "https://www.tikwm.com",
+  "Referer": "https://www.tikwm.com/",
+};
 
 app.set("trust proxy", 1);
 app.use(cors());
@@ -21,7 +28,6 @@ app.use(express.json({ limit: "10kb" }));
 app.use(express.static(path.join(__dirname, "public")));
 app.get("/", (_req, res) => res.sendFile(path.join(__dirname, "public", "index.html")));
 
-// Batasi request per IP agar kuota API tidak cepat habis
 app.use(
   "/api/",
   rateLimit({
@@ -48,19 +54,32 @@ function isValidTikTokUrl(input) {
   const hostOk = host === "tiktok.com" || host.endsWith(".tiktok.com");
   if (!hostOk) return false;
 
-  // Link pendek (vm./vt.//t/) atau link video lengkap (/@user/video/ID)
   const shortHost = host === "vm.tiktok.com" || host === "vt.tiktok.com";
   const shortPath = /^\/t\/[\w-]+/.test(parsed.pathname);
   const videoPath = /^\/@[\w.\-]+\/(video|photo)\/\d+/.test(parsed.pathname);
   return shortHost || shortPath || videoPath;
 }
 
-// ====== Class error sederhana ======
 class ApiError extends Error {
   constructor(status, message) {
     super(message);
     this.status = status;
   }
+}
+
+// ====== Ubah link pendek jadi link panjang ======
+async function resolveUrl(url) {
+  try {
+    const r = await axios.get(url, {
+      maxRedirects: 5,
+      timeout: 10000,
+      headers: { "User-Agent": BROWSER_HEADERS["User-Agent"] },
+      validateStatus: () => true,
+    });
+    const final = r.request?.res?.responseUrl;
+    if (final && /\/(video|photo)\/\d+/.test(final)) return final.split("?")[0];
+  } catch {}
+  return url;
 }
 
 // ====== Ambil data dari API ======
@@ -77,10 +96,11 @@ async function fetchFromProvider(url) {
         timeout: 15000,
       });
     } else {
-      res = await axios.get(TIKWM_URL, {
-        params: { url, hd: 1 },
-        timeout: 15000,
-      });
+      res = await axios.post(
+        TIKWM_URL,
+        new URLSearchParams({ url, hd: "1" }).toString(),
+        { headers: BROWSER_HEADERS, timeout: 15000 }
+      );
     }
     return res.data;
   } catch (err) {
@@ -102,7 +122,6 @@ function formatResult(body) {
     throw new ApiError(502, "Respons API tidak valid.");
   }
 
-  // TikWM: code 0 = sukses
   if (body.code !== undefined && body.code !== 0) {
     const msg = String(body.msg || "");
     if (/limit/i.test(msg)) throw new ApiError(429, "Batas penggunaan API habis. Coba lagi nanti.");
@@ -138,7 +157,7 @@ app.post("/api/download", async (req, res, next) => {
     if (!url) throw new ApiError(400, "Field 'url' wajib diisi.");
     if (!isValidTikTokUrl(url)) throw new ApiError(400, "URL bukan link TikTok yang valid.");
 
-    const body = await fetchFromProvider(url.trim());
+    const body = await fetchFromProvider(await resolveUrl(url.trim()));
     const data = formatResult(body);
 
     res.json({ success: true, data });
@@ -162,7 +181,6 @@ app.use((err, _req, res, _next) => {
   });
 });
 
-// Jalan lokal: node server.js. Di Vercel, app diekspor sebagai fungsi.
 if (require.main === module) {
   app.listen(PORT, () => console.log(`Server berjalan di http://localhost:${PORT}`));
 }

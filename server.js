@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
+const path = require("path");
 const rateLimit = require("express-rate-limit");
 
 const app = express();
@@ -14,9 +15,11 @@ const RAPIDAPI_HOST = process.env.RAPIDAPI_HOST || "tiktok-video-no-watermark2.p
 const RAPIDAPI_URL = process.env.RAPIDAPI_URL || `https://${RAPIDAPI_HOST}/`;
 const TIKWM_URL = "https://www.tikwm.com/api/";
 
+app.set("trust proxy", 1);
 app.use(cors());
 app.use(express.json({ limit: "10kb" }));
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
+app.get("/", (_req, res) => res.sendFile(path.join(__dirname, "public", "index.html")));
 
 // Batasi request per IP agar kuota API tidak cepat habis
 app.use(
@@ -159,4 +162,9 @@ app.use((err, _req, res, _next) => {
   });
 });
 
-app.listen(PORT, () => console.log(`Server berjalan di http://localhost:${PORT}`));
+// Jalan lokal: node server.js. Di Vercel, app diekspor sebagai fungsi.
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`Server berjalan di http://localhost:${PORT}`));
+}
+
+module.exports = app;

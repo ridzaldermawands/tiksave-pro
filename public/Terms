@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Syarat & Ketentuan - TikSave Pro</title><meta name="description" content="Syarat dan ketentuan penggunaan TikSave Pro.">
+<link rel="canonical" href="https://tiksave-pro-2wry.vercel.app/terms.html"><meta name="robots" content="index, follow">
+<style>
+:root{--bg:#0b0e14;--card:#141923;--card2:#0f131c;--bd:#232b3a;--tx:#f4f6fa;--mu:#9aa4b5;--red:#fe2c55;--cy:#25f4ee}
+*{box-sizing:border-box;margin:0}
+body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--tx);line-height:1.5}
+svg{width:1em;height:1em;flex:none}
+header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--bd);gap:10px}
+.logo{display:flex;align-items:center;gap:10px;font-size:1.5rem;font-weight:800;letter-spacing:-.5px;color:var(--tx);text-decoration:none}
+.logo i{width:46px;height:46px;border-radius:14px;border:2px solid transparent;background:linear-gradient(var(--bg),var(--bg)) padding-box,linear-gradient(135deg,var(--cy),var(--red)) border-box;display:grid;place-items:center;font-style:normal;color:var(--cy);font-size:1.4rem}
+.logo b{color:var(--red)}
+.pro{font-size:.7rem;font-weight:700;color:var(--cy);background:rgba(37,244,238,.1);border:1px solid rgba(37,244,238,.35);padding:2px 7px;border-radius:7px}
+main{max-width:680px;margin:0 auto;padding:44px 20px 20px;text-align:center}
+.badge{display:inline-flex;align-items:center;gap:8px;color:var(--red);background:rgba(254,44,85,.08);border:1px solid rgba(254,44,85,.35);padding:7px 16px;border-radius:99px;font-size:.85rem;font-weight:500}
+h1{font-size:clamp(1.9rem,7.5vw,3rem);line-height:1.2;margin:24px 0 16px;letter-spacing:-1px;font-weight:800}
+h1 span{background:linear-gradient(90deg,var(--cy),var(--red));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--mu);font-size:1rem;margin-bottom:32px}
+.panel{background:var(--card);border:1px solid var(--bd);border-radius:26px;padding:14px;text-align:left}
+.field{display:flex;align-items:center;gap:10px;background:var(--card2);border:1px solid var(--bd);border-radius:18px;padding:10px 10px 10px 16px}
+.field:focus-within{border-color:var(--cy)}
+.field>svg{color:var(--mu);font-size:1.4rem}
+.field input{flex:1;min-width:0;background:none;border:0;color:var(--tx);font-size:1rem;outline:0;padding:8px 0}
+.field input::placeholder{color:var(--mu)}
+.paste{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--bd);color:var(--cy);font-weight:600;padding:10px 14px;border-radius:12px;cursor:pointer;font-size:.9rem}
+.go{margin-top:12px;width:100%;display:flex;justify-content:center;align-items:center;gap:10px;border:0;border-radius:18px;padding:18px;font-size:1.1rem;font-weight:700;color:#fff;background:linear-gradient(90deg,#ff2a55,#ff5277);cursor:pointer;box-shadow:0 8px 24px rgba(254,44,85,.25)}
+.go:disabled{opacity:.65;cursor:wait}
+.err{display:none;margin-top:12px;padding:12px 14px;border-radius:12px;background:rgba(254,44,85,.1);color:#ff7a93;font-size:.92rem}
+.res{display:none;margin-top:14px;background:var(--card2);border:1px solid var(--bd);border-radius:18px;overflow:hidden}
+.res img{width:100%;max-height:360px;object-fit:cover;display:block;background:#000}
+.info{padding:14px}
+.t{font-weight:600;word-break:break-word}
+.a{color:var(--cy);font-size:.9rem;margin:2px 0 8px}
+.st{display:flex;gap:16px;flex-wrap:wrap;color:var(--mu);font-size:.85rem;margin-bottom:14px}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.btn{flex:1;min-width:140px;text-align:center;text-decoration:none;color:#fff;background:var(--red);padding:13px;border-radius:12px;font-weight:600;font-size:.95rem}
+.btn.alt{background:transparent;border:1px solid var(--bd);color:var(--tx)}
+hr{border:0;border-top:1px solid var(--bd);margin:56px 0 0}
+.why{max-width:680px;margin:0 auto;padding:48px 20px 8px;text-align:center}
+.why h2{font-size:1.5rem;margin-bottom:28px}
+.feat{background:var(--card);border:1px solid var(--bd);border-radius:24px;padding:26px;text-align:left;margin-bottom:16px}
+.ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:1.5rem;margin-bottom:22px;background:rgba(37,244,238,.1);border:1px solid rgba(37,244,238,.3);color:var(--cy)}
+.ic.r{background:rgba(254,44,85,.1);border-color:rgba(254,44,85,.3);color:var(--red)}
+.feat h3{font-size:1.15rem;margin-bottom:8px}
+.feat p{color:var(--mu);font-size:.95rem}
+.sec{max-width:680px;margin:0 auto;padding:32px 20px 8px}
+.sec h2{font-size:1.5rem;margin-bottom:18px;text-align:center}
+.steps{list-style:none;padding:0;counter-reset:s}
+.steps li{counter-increment:s;background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:16px 16px 16px 58px;margin-bottom:10px;position:relative;color:var(--mu);font-size:.95rem}
+.steps li:before{content:counter(s);position:absolute;left:16px;top:14px;width:28px;height:28px;border-radius:50%;background:rgba(254,44,85,.12);color:var(--red);font-weight:700;display:grid;place-items:center}
+.steps b{color:var(--tx)}
+details{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px 16px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:600}
+details p{color:var(--mu);font-size:.93rem;margin-top:8px}
+footer{text-align:center;color:var(--mu);font-size:.85rem;padding:32px 20px 44px}
+footer nav{display:flex;gap:6px 18px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+footer a{color:var(--tx);text-decoration:none}
+footer a:hover{color:var(--cy)}
+.doc{max-width:720px;margin:0 auto;padding:40px 20px}.doc h1{font-size:2rem;margin:0 0 8px;text-align:left}.doc h2{font-size:1.2rem;margin:28px 0 8px}.doc p,.doc li{color:var(--mu);margin-bottom:10px}.doc ul{padding-left:20px}.doc a{color:var(--cy)}.upd{font-size:.85rem}</style></head><body>
+<header><a class="logo" href="/"><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9.7a5.7 5.7 0 1 0 4.9 5.7V9a7.4 7.4 0 0 0 4.3 1.4V7.3a4.3 4.3 0 0 1-3.2-1.5z"/></svg></i><span>Tik<b>Save</b></span><span class="pro">PRO</span></a></header>
+<div class="doc"><h1>Syarat & Ketentuan</h1><p class="upd">Terakhir diperbarui: 15 Oktober 2026</p>
+<p>Dengan memakai TikSave Pro, Anda menyetujui syarat berikut.</p>
+<h2>Penggunaan yang diizinkan</h2><p>Layanan ini hanya untuk mengunduh konten milik Anda sendiri atau konten yang telah diizinkan oleh pembuatnya, untuk penggunaan pribadi.</p>
+<h2>Hak cipta</h2><p>Seluruh video, musik, dan konten TikTok adalah milik pembuat aslinya. Anda bertanggung jawab penuh atas penggunaan konten yang diunduh, termasuk tidak mengunggah ulang tanpa izin.</p>
+<h2>Larangan</h2><ul><li>Menyalahgunakan layanan untuk melanggar hukum atau hak pihak lain.</li><li>Mengirim permintaan otomatis dalam jumlah berlebihan.</li><li>Mencoba mengganggu atau merusak layanan.</li></ul>
+<h2>Tanpa jaminan</h2><p>Layanan disediakan apa adanya. Kami tidak menjamin layanan selalu tersedia atau bebas kesalahan.</p>
+<h2>Tidak berafiliasi</h2><p>TikSave Pro tidak berafiliasi dengan TikTok atau ByteDance.</p>
+<h2>Perubahan</h2><p>Kami dapat mengubah syarat ini sewaktu-waktu. Penggunaan berkelanjutan berarti Anda menerima perubahan tersebut.</p>
+<h2>Kontak</h2><p><a href="mailto:ridzaldermawands@gmail.com">ridzaldermawands@gmail.com</a></p></div>
+<footer><nav><a href="/">Beranda</a><a href="/about.html">Tentang Kami</a><a href="/contact.html">Kontak</a><a href="/privacy.html">Kebijakan Privasi</a><a href="/terms.html">Syarat &amp; Ketentuan</a></nav><p>&copy; 2026 TikSave Pro</p></footer></body></html>

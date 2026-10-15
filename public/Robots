@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://tiksave-pro-2wry.vercel.app/sitemap.xml

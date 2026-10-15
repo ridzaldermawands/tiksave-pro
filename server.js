@@ -12,17 +12,30 @@ const app = express();
 app.use(express.json());
 
 // ------------------------------------------------------------
-// 1) KONFIGURASI RAPIDAPI  (diisi lewat file .env, bukan di sini)
+// 1) KONFIGURASI RAPIDAPI (diisi lewat Environment Variables / .env)
 // ------------------------------------------------------------
 const PORT = process.env.PORT || 3000;
-const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY;     // x-rapidapi-key
-const RAPIDAPI_HOST = process.env.RAPIDAPI_HOST;   // x-rapidapi-host
-const RAPIDAPI_PATH = process.env.RAPIDAPI_PATH || "/"; // path endpoint, contoh: /video
+const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY;
+const RAPIDAPI_HOST = process.env.RAPIDAPI_HOST;
+const RAPIDAPI_PATH = process.env.RAPIDAPI_PATH || "/";
 
 if (!RAPIDAPI_KEY || !RAPIDAPI_HOST) {
   console.warn(
-    "[PERINGATAN] RAPIDAPI_KEY / RAPIDAPI_HOST belum diisi di file .env"
+    "[PERINGATAN] RAPIDAPI_KEY / RAPIDAPI_HOST belum diisi (Environment Variables / .env)"
   );
+}
+
+// ------------------------------------------------------------
+// Helper: respons seragam (ok + success supaya cocok dengan frontend)
+// ------------------------------------------------------------
+function sendOk(res, data, cached) {
+  return res.json({ ok: true, success: true, cached: !!cached, data });
+}
+
+function sendErr(res, status, message) {
+  return res
+    .status(status)
+    .json({ ok: false, success: false, error: message, message });
 }
 
 // ------------------------------------------------------------
@@ -30,7 +43,7 @@ if (!RAPIDAPI_KEY || !RAPIDAPI_HOST) {
 // ------------------------------------------------------------
 const CACHE_TTL_MS = 10 * 60 * 1000; // 10 menit
 const CACHE_MAX = 500;
-const cache = new Map(); // tiktokUrl -> { time, data }
+const cache = new Map();
 
 function getCache(key) {
   const hit = cache.get(key);
@@ -44,16 +57,16 @@ function getCache(key) {
 
 function setCache(key, data) {
   if (cache.size >= CACHE_MAX) {
-    cache.delete(cache.keys().next().value); // buang yang paling lama
+    cache.delete(cache.keys().next().value);
   }
   cache.set(key, { time: Date.now(), data });
 }
 
 // ------------------------------------------------------------
-// 3) BATAS REQUEST PER IP (cegah kuota habis dipakai orang lain)
+// 3) BATAS REQUEST PER IP
 // ------------------------------------------------------------
 const RATE_WINDOW_MS = 60 * 1000;
-const RATE_MAX = 10; // maksimal 10 request/menit per IP
+const RATE_MAX = 10;
 const hits = new Map();
 
 function rateLimit(req, res, next) {
@@ -61,9 +74,7 @@ function rateLimit(req, res, next) {
   const now = Date.now();
   const list = (hits.get(ip) || []).filter((t) => now - t < RATE_WINDOW_MS);
   if (list.length >= RATE_MAX) {
-    return res
-      .status(429)
-      .json({ ok: false, error: "Terlalu banyak permintaan. Coba lagi sebentar." });
+    return sendErr(res, 429, "Terlalu banyak permintaan. Coba lagi sebentar.");
   }
   list.push(now);
   hits.set(ip, list);
@@ -94,24 +105,28 @@ function isTikTokUrl(value) {
 }
 
 // ------------------------------------------------------------
-// 5) FORMAT HASIL DARI RAPIDAPI
-//    (API ini mengembalikan field berbentuk array, jadi ambil [0])
+// 5) FORMAT HASIL DARI RAPIDAPI (field API berbentuk array -> ambil [0])
 // ------------------------------------------------------------
 function formatResult(data) {
   const first = (v) => (Array.isArray(v) ? v[0] : v) || null;
 
   const images = Array.isArray(data.images) ? data.images : [];
+  const video = first(data.video);
+  const description = first(data.description);
 
   return {
     id: first(data.videoid),
     author: first(data.author),
-    description: first(data.description),
+    description,
+    title: description,
     region: first(data.region),
     avatar: first(data.avatar_thumb),
     cover: first(data.cover),
-    video: first(data.video),                       // tanpa watermark
+    video, // tanpa watermark
+    video_no_watermark: video,
     watermarked: first(data.OriginalWatermarkedVideo),
     music: first(data.music),
+    stats: { views: 0, likes: 0, shares: 0 },
     isVideo: data.is_video !== false && images.length === 0,
     images,
   };
@@ -171,47 +186,44 @@ app.all("/api/download", rateLimit, async (req, res) => {
   ).trim();
 
   if (!tiktokUrl) {
-    return res.status(400).json({ ok: false, error: "Link TikTok wajib diisi." });
+    return sendErr(res, 400, "Link TikTok wajib diisi.");
   }
   if (!isTikTokUrl(tiktokUrl)) {
-    return res.status(400).json({ ok: false, error: "Link bukan dari TikTok." });
+    return sendErr(res, 400, "Link bukan dari TikTok.");
   }
   if (!RAPIDAPI_KEY || !RAPIDAPI_HOST) {
-    return res
-      .status(500)
-      .json({ ok: false, error: "Server belum dikonfigurasi (.env)." });
+    return sendErr(res, 500, "Server belum dikonfigurasi (Environment Variables).");
   }
 
   const cached = getCache(tiktokUrl);
-  if (cached) return res.json({ ok: true, cached: true, data: cached });
+  if (cached) return sendOk(res, cached, true);
 
   try {
     const raw = await fetchFromRapidApi(tiktokUrl);
     const result = formatResult(raw);
 
     if (!result.video && result.images.length === 0) {
-      return res
-        .status(404)
-        .json({ ok: false, error: "Video tidak ditemukan atau bersifat privat." });
+      return sendErr(res, 404, "Video tidak ditemukan atau bersifat privat.");
     }
 
     setCache(tiktokUrl, result);
-    res.json({ ok: true, cached: false, data: result });
+    sendOk(res, result, false);
   } catch (err) {
-    res
-      .status(err.status || 500)
-      .json({ ok: false, error: err.message || "Terjadi kesalahan server." });
+    sendErr(res, err.status || 500, err.message || "Terjadi kesalahan server.");
   }
 });
 
 // ------------------------------------------------------------
-// 8) ROUTE: unduh file lewat server (supaya browser langsung download)
+// 8) ROUTE: unduh file lewat server
 //    GET /api/file?src=URL_CDN&name=nama-file.mp4
 // ------------------------------------------------------------
 function isTikTokCdn(value) {
   try {
     const u = new URL(value);
-    return u.protocol === "https:" && /(^|\.)tiktokcdn[a-z0-9-]*\.com$/i.test(u.hostname);
+    return (
+      u.protocol === "https:" &&
+      /(^|\.)tiktokcdn[a-z0-9-]*\.com$/i.test(u.hostname)
+    );
   } catch {
     return false;
   }
@@ -224,13 +236,13 @@ app.get("/api/file", rateLimit, async (req, res) => {
     "tiktok.mp4";
 
   if (!isTikTokCdn(src)) {
-    return res.status(400).json({ ok: false, error: "Sumber file tidak diizinkan." });
+    return sendErr(res, 400, "Sumber file tidak diizinkan.");
   }
 
   try {
     const upstream = await fetch(src);
     if (!upstream.ok || !upstream.body) {
-      return res.status(502).json({ ok: false, error: "Gagal mengambil file." });
+      return sendErr(res, 502, "Gagal mengambil file.");
     }
 
     res.setHeader(
@@ -243,19 +255,17 @@ app.get("/api/file", rateLimit, async (req, res) => {
 
     Readable.fromWeb(upstream.body).pipe(res);
   } catch {
-    res.status(502).json({ ok: false, error: "Gagal mengunduh file." });
+    sendErr(res, 502, "Gagal mengunduh file.");
   }
 });
 
 // ------------------------------------------------------------
-// 9) FILE WEBSITE (frontend) - taruh index.html dkk di folder "public"
+// 9) FILE WEBSITE (frontend) - folder "public"
 // ------------------------------------------------------------
 app.use(express.static(path.join(__dirname, "public")));
 
 // ------------------------------------------------------------
 // 10) JALANKAN SERVER
-//     - Di komputer/hosting biasa: jalan dengan app.listen
-//     - Di Vercel: cukup export app (Vercel yang menjalankannya)
 // ------------------------------------------------------------
 if (!process.env.VERCEL) {
   app.listen(PORT, () => {
